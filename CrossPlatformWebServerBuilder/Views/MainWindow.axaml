@@ -1,36 +1,81 @@
 <Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:CrossPlatformWebServerBuilder.ViewModels"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="CrossPlatformWebServerBuilder.Views.MainWindow"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="CrossPlatformWebServerBuilder">
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:vm="using:CrossPlatformWebServerBuilder.ViewModels"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+		x:Class="CrossPlatformWebServerBuilder.Views.MainWindow"
+		Icon="/Assets/avalonia-logo.ico"
+		Title="CrossPlatformWebServerBuilder">
 
-    <Design.DataContext>
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>
-        
-    <Grid ShowGridLines="True" Margin="10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition MaxHeight="100"/>
-        </Grid.RowDefinitions>
+	<Design.DataContext>
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition MaxWidth="120"/>
-        </Grid.ColumnDefinitions>
+	<Grid Margin="10">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
 
-        <TextBox Text="{Binding TextBoxScript_Text}" 
-                 VerticalAlignment="Stretch"
-                 AcceptsReturn="True"
-                 Grid.Row="0"
-                 Grid.Column="0"
-                 Grid.ColumnSpan="2"/>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="Auto"/>
+		</Grid.ColumnDefinitions>
 
-        <TextBox Text="{Binding TextBoxFilePath_Text}"/>
-    </Grid>
+		<TextBox Text="{Binding TextBoxScript_Text}" 
+				 VerticalAlignment="Stretch"
+				 AcceptsReturn="True"
+				 Margin="10"
+				 Grid.Row="0"
+				 Grid.Column="0"
+				 Grid.ColumnSpan="2"/>
+
+		<StackPanel Grid.Row="1"
+					Grid.Column="0">
+
+			<TextBox Text="{Binding TextBoxFilePath_Text}"
+					 Watermark="Path to File (ex. ./Pages/home.html) ..."
+					 Margin="10, 0, 10, 10"/>
+
+			<TextBox Text="{Binding TextBoxURLPath_Text}"
+					 Watermark="URL to Host File (ex. /pages/home) ..."
+					 Margin="10, 0, 10, 10"/>
+
+		</StackPanel>
+
+		<StackPanel Grid.Row="1"
+					Grid.Column="1">
+
+					<StackPanel Orientation="Horizontal">
+
+						<Button Command="{Binding AddRequireBlockCommand}"
+							    Margin="10, 0, 10, 10"
+							    Content="Add Requirements"
+							    HorizontalContentAlignment="Center"
+							    VerticalContentAlignment="Center"
+							    Height="32"
+							    Width="150"/>
+
+						<Button Command="{Binding AddListenBlockCommand}"
+							    Margin="0, 0, 10, 10"
+							    Content="Add Listen"
+							    HorizontalContentAlignment="Center"
+							    VerticalContentAlignment="Center"
+							    Height="32"
+							    Width="150"/>
+
+					</StackPanel>
+
+					<Button Command="{Binding AddCodeBlockCommand}"
+						    Margin="10, 0, 10, 10"
+						    Content="Add Get Statement"
+						    HorizontalContentAlignment="Center"
+						    VerticalContentAlignment="Center"
+						    Height="32"
+						    Width="310"/>
+
+		</StackPanel>
+	</Grid>
 
 </Window>

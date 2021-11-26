@@ -9,6 +9,31 @@ namespace CrossPlatformWebServerBuilder.Models
 {
 	class ScriptBuilder
 	{
+		public static readonly string[] Requires = new string[] 
+		{
+			"express = require('express');",
+			"path = require('path');\n",
+			"app = express();\n"
+		};
+
+		public static string MakeListen(int port) => 
+			$"app.listen({Convert.ToString(port)}, console.log('Server listening on port {Convert.ToString(port)}'));\n";
+
+		public static string[] MakeGet(string filePath, string url) => new string[] 
+		{
+			$"app.get('\"{url}\"" + "', (req, res) => {",
+			$"    res.sendFile(path.join(__dirname + '\"{filePath}\"'));",
+			$"    console.log('Got request for {url} ({filePath}) ... ');",
+			"});\n"
+		};
+
+		public static string MakeSingleString(string[] sArray)
+		{
+			string singleString = "";
+			foreach (string s in sArray) singleString += s + '\n';
+			return singleString;
+		}
+
 		public static string[] GetLines(FileStream fileStream) 
 		{
 			byte[] bytes = new byte[fileStream.Length];
@@ -22,21 +47,6 @@ namespace CrossPlatformWebServerBuilder.Models
 			for (int i = 0; i < lines.Length; i++) bytes[i] = Convert.ToByte(lines[i]);
 			fileStream = new FileStream(fileStream.Name, FileMode.Create);
 			fileStream.Write(bytes, 0, bytes.Length);
-		}
-
-		public static string[] MakeGet(string filePath, string url)
-		{
-			return new string[] {
-				$"app.get('\"{filePath}\"" + "', (req, res) => {",
-				$"\tres.sendFile(path.join(__dirname + '\"{url}\"'));",
-				$"\tconsole.log('Got request for {url} ({filePath}) ... ');",
-				"});"
-			};
-		}
-
-		public static string MakeListen(int port)
-		{
-			return $"app.listen({Convert.ToString(port)}, console.log('Server listening on port {Convert.ToString(port)}'));";
 		}
 	}
 }
