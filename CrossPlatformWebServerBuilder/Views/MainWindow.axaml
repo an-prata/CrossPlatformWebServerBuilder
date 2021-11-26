@@ -1,0 +1,36 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:CrossPlatformWebServerBuilder.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="CrossPlatformWebServerBuilder.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="CrossPlatformWebServerBuilder">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+        
+    <Grid ShowGridLines="True" Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition MaxHeight="100"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition MaxWidth="120"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBox Text="{Binding TextBoxScript_Text}" 
+                 VerticalAlignment="Stretch"
+                 AcceptsReturn="True"
+                 Grid.Row="0"
+                 Grid.Column="0"
+                 Grid.ColumnSpan="2"/>
+
+        <TextBox Text="{Binding TextBoxFilePath_Text}"/>
+    </Grid>
+
+</Window>
