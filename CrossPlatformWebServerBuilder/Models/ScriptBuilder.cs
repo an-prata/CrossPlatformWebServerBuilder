@@ -34,18 +34,17 @@ namespace CrossPlatformWebServerBuilder.Models
 			return singleString;
 		}
 
-		public static string[] GetLines(FileStream fileStream) 
+		public static string GetLines(FileStream fileStream) 
 		{
 			byte[] bytes = new byte[fileStream.Length];
 			fileStream.Read(bytes, 0, (int)fileStream.Length);
-			return Encoding.Default.GetString(bytes).Split('\n');
+			return Encoding.Default.GetString(bytes);
 		}
 
 		public static void SaveFile(FileStream fileStream, string lines)
 		{
 			byte[] bytes = new byte[lines.Length];
 			for (int i = 0; i < lines.Length; i++) bytes[i] = Convert.ToByte(lines[i]);
-			fileStream = new FileStream(fileStream.Name, FileMode.Create);
 			fileStream.Write(bytes, 0, bytes.Length);
 		}
 	}
